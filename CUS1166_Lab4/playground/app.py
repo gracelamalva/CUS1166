@@ -24,4 +24,7 @@ def welcome(student_name):
 def roster(grade_view):
     return render_template("roster.html", class_roster = class_roster, grade_view = grade_view)
 
-   
+
+@app.route("/layout")
+def layout():
+    return render_template("layout.html")
