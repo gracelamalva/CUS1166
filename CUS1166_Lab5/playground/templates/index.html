@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> Welcome! </title>
+</head>
+
+<body>
+  <h1>WELCOME PAGE </h1>
+
+  <ul>
+    {% for course in courses %}
+      <li>Course num: {{course.course_number}} , Course title: {{course.course_title}} </li>
+    {% endfor %}
+  </ul>
+
+  <div class="courses">
+    <form action="{{url for('add_course')}}" method="post">
+      <input type="text" name="number" placeholder="Number">
+      <input type="text" name="name" placeholder="Name">
+
+      <button type="submit"> Add Course </button>
+    </form>
+  </div>
+
+</body>
+
+</html>
