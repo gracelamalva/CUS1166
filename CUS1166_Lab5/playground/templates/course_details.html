@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>{% block title %} Students in course {% endblock %}</title>
+    </head>
+    <body>
+        <h3>Roster</h3>
+        {% block content %}
+        <ul>
+            {% for student in students %}
+                <li>Student ID: {{student.id}}, Name: {{student.name}} , Grade: {{student.grade}} </li>
+              {% endfor %}    
+        </ul>
+        <div class="students">
+                <form action="{{url_for('register_student')}}" method="post">
+                  <input type="text" name="id" placeholder="ID">
+                  <input type="text" name="name" placeholder="name">
+                  <input type="text" name="grade" placeholder="grade">
+            
+                  <button type="submit"> Add Student </button>
+                </form>
+              </div>
+        {% endblock %}
+    </body>
+</html>

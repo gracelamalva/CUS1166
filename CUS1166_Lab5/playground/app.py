@@ -17,20 +17,20 @@ db.init_app(app)
 
 @app.route("/")
 def index():
-    # Equivalent to: "SELECT * from flights" SQL statement.
     courses = Course.query.all()
     return render_template('index.html', courses = courses)
 
 
-@app.route("/add_student", methods=["post"])
-def add_student():
+@app.route("/add_course", methods=["post"])
+def add_course():
     # Get information from the form.
-    origin = request.form.get("number")
-    destination = request.form.get("name")
+    id = request.form.get("ID")
+    number = request.form.get("number")
+    title = request.form.get("title")
 
     # Equivalent to:
     # INSERT INTO flights (flight_number, origin, destination, durations) VALUES (origin,...)
-    course = Course(course_number="LH", course_title = course_title)
+    course = Course(id = id ,course_number= number, course_title = title)
     db.session.add(course)
     db.session.commit()
     # Query database.
@@ -38,24 +38,25 @@ def add_student():
     courses=Course.query.all()
     return render_template('index.html', courses = courses)
 
-"""
-@app.route("/book/<int:flight_id>", methods=["GET", "POST"])
-def book_flight(flight_id):
-    #
-    # Equivalent to "SELECT * from flights where id=flight_id"
-flight=Flight.query.get(flight_id)
-    # If this is a post request = Add the passenger.
-if request.method == 'POST':
-name=request.form.get("name")
-seat=request.form.get("seat")
-    # Use the utility method to add a new passenger in the database.
-flight.add_passenger(name, seat)
-    # Use the relationships field in the flights model to retrieve
-    # all passengers in the current flight.
-passengers=flight.passengers
-return render_template("book.html", flight=flight, passengers=passengers)
 
-"""               
+@app.route("/register_student/<int:course_id>", methods=["GET", "POST"])
+def register_student(course_id):
+        #
+        # Equivalent to "SELECT * from flights where id=flight_id"
+    course =Course.query.get(course_id)
+        # If this is a post request = Add the passenger.
+    if request.method == 'POST':
+        #id = request.form.get("id")
+        name =request.form.get("name")
+        grade =request.form.get("grade")
+            # Use the utility method to add a new passenger in the database.
+        course.add_student(name, grade)
+            # Use the relationships field in the flights model to retrieve
+        # all passengers in the current flight.
+    students = course.students
+    return render_template("course_details.html", course = course, students = students)
+
+            
 def main():
     if (len(sys.argv) == 2):
         print(sys.argv)

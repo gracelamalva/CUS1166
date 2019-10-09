@@ -12,7 +12,7 @@ class Course(db.Model):
     course_title = db.Column(db.String, nullable=False)
 
     #Specify any relationship fields.
-    registeredStudents = db.relationship("RegisteredStudent", backref="courses", lazy=True)
+    students = db.relationship("RegisteredStudent", backref="courses", lazy=True)
 
     # specify any utility methods associated with the model.
     def add_student(self, name, grade):
@@ -25,6 +25,7 @@ class Course(db.Model):
 class RegisteredStudent(db.Model):
 
     __tablename__ = "registered_student"
+    
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     grade = db.Column(db.String, nullable=False)

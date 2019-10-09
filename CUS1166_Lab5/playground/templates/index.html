@@ -1,28 +1,31 @@
+{% extends "layout.html" %}
 <!DOCTYPE html>
 <html>
 
 <head>
-  <title> Welcome! </title>
+  <title>{% block title %} Welcome! {% endblock %}</title>
 </head>
 
 <body>
   <h1>WELCOME PAGE </h1>
-
-  <ul>
+  {% block content %}
+  <h3 style="background-color: aqua;">Courses</h3>
+  <ul> 
     {% for course in courses %}
-      <li>Course num: {{course.course_number}} , Course title: {{course.course_title}} </li>
+      <li>Course ID: {{course.id }}, Course num: {{course.course_number}} , Course title: {{course.course_title}} </li>
     {% endfor %}
   </ul>
 
   <div class="courses">
-    <form action="{{url for('add_course')}}" method="post">
+    <form action="{{url_for('add_course')}}" method="post">
+      <input type="text" name="id" placeholder="ID">
       <input type="text" name="number" placeholder="Number">
-      <input type="text" name="name" placeholder="Name">
+      <input type="text" name="title" placeholder="Title">
 
       <button type="submit"> Add Course </button>
     </form>
   </div>
-
+  {% endblock %}
 </body>
 
 </html>
